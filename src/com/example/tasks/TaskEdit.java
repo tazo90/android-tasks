@@ -74,7 +74,7 @@ public class TaskEdit extends Activity {
 	}
 	
 	/**
-	 * life-cycle methods
+	 * Life-cycle methods
 	 */
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {

@@ -90,6 +90,9 @@ public class TaskList extends ListActivity {
     	
     }   
 	
+	/**
+	 * Custom CursorAdapter
+	 */
 	private class MyAdapter extends CursorAdapter {
 		
 		private LayoutInflater mInflater;
@@ -220,14 +223,16 @@ public class TaskList extends ListActivity {
 	}
 	
 	
-	
+	/**
+	 * Invoke TaskEdit intent
+	 */
 	private void createTask() {
 		Intent i = new Intent(this, TaskEdit.class);		
 		startActivityForResult(i, ACTIVITY_CREATE);		
 	}
 	
 	/**
-	 * return position that we clicked on ListView
+	 * Return position that we clicked on ListView
 	 */
 	@Override
 	protected void onListItemClick(ListView l, View v, int position, long id) {
@@ -242,7 +247,7 @@ public class TaskList extends ListActivity {
 	
 	
 	/**
-	 * return result of Activity
+	 * Return result of Activity
 	 */
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
