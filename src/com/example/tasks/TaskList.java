@@ -12,6 +12,7 @@ import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,12 +24,10 @@ import android.widget.EditText;
 import android.widget.FilterQueryProvider;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class TaskList extends ListActivity {
-			
-	private static final int INSERT_ID = Menu.FIRST;
-	private static final int DELETE_ID = Menu.FIRST + 1; 
-	
+				
 	private static final int ACTIVITY_CREATE=0;
 	private static final int ACTIVITY_EDIT=1;
 	
@@ -55,8 +54,8 @@ public class TaskList extends ListActivity {
 	 * Fill out listView by tasks from database.
 	 */
 	@SuppressWarnings("deprecation")
-	private void fillData() {    
-    	// Get all of the rows from the database and create the item list
+	private void fillData() {
+		// Get all of the rows from the database and create the item list
     	Cursor tasksCursor = mDbHelper.fetchAllTasks();    	
     	startManagingCursor(tasksCursor);
     	    	    	    	
@@ -86,9 +85,8 @@ public class TaskList extends ListActivity {
     		public Cursor runQuery(CharSequence constraint) {    			    		
     			return mDbHelper.fetchAllTasksByName(constraint.toString());
     		}
-    	});   	
-    	
-    }   
+    	});
+    }
 	
 	/**
 	 * Custom CursorAdapter
@@ -183,37 +181,64 @@ public class TaskList extends ListActivity {
 		case R.id.add:
 			createTask();
 			break;
+		case R.id.del:
+			Cursor c = mDbHelper.fetchAllTasks();
+			boolean selected;
+			int rowId;
+			
+			// loop through all rows in listView for searching checked rows to delete
+			if (c.moveToFirst()) {
+				do {					
+					selected = (c.getInt(c.getColumnIndex(TasksDbAdapter.KEY_SELECTED)) == 0 ? false:true);
+					rowId 	 = (c.getInt(c.getColumnIndex(TasksDbAdapter.KEY_ROWID)));
+					if (selected) 
+						mDbHelper.deleteTask(rowId);
+					
+				} while (c.moveToNext());
+			}
+			else Toast.makeText(this, "Lista pusta", Toast.LENGTH_SHORT).show();
+			
+			// refresh list view
+			fillData();
+			break;
 		}
 	}
 
+	/**
+	 * Elements of menu
+	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		super.onCreateOptionsMenu(menu);
-		menu.add(0, INSERT_ID, 0, R.string.menu_insert);
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.task_list_menu, menu);
 		return true;
 	}
 	
 	@Override
 	public boolean onMenuItemSelected(int featureId, MenuItem item) {
 		switch (item.getItemId()) {
-		case INSERT_ID:
+		case R.id.menu_insert:
 			createTask();
 			return true;
 		}
 		return super.onMenuItemSelected(featureId, item);
 	}
 	
+	/**
+	 * Elements of context menu
+	 */
 	@Override
-	public void onCreateContextMenu(ContextMenu menu, View v,
-			ContextMenuInfo menuInfo) {
+	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
 		super.onCreateContextMenu(menu, v, menuInfo);
-		menu.add(0, DELETE_ID, 0, R.string.menu_delete);
+		//menu.add(0, DELETE_ID, 0, R.string.menu_delete);
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.task_list_context_menu, menu);
 	}
-	
+		
 	@Override
 	public boolean onContextItemSelected(MenuItem item) {
 		switch(item.getItemId()) {
-		case DELETE_ID:
+		case R.id.context_menu_delete:
 			AdapterContextMenuInfo info = (AdapterContextMenuInfo)item.getMenuInfo();
 			mDbHelper.deleteTask(info.id);
 			fillData();
@@ -252,9 +277,9 @@ public class TaskList extends ListActivity {
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
 		super.onActivityResult(requestCode, resultCode, intent);
-				
+								
 		// refresh the data in Views
-		fillData();
+		fillData();				
 	}	
 			
 }

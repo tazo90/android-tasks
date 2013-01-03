@@ -2,25 +2,29 @@
 <resources>
 
     <string name="app_name">Tasks</string>
-    <string name="no_tasks">Brak zadan</string>
+    <string name="no_tasks">Brak zadań</string>
+    
     <string name="menu_insert">Dodaj zadanie</string>
-    <string name="menu_delete">Usun zadanie</string>
-    <string name="title">Tytul</string>
-    <string name="body">Tresc</string>
+    
+    <string name="context_menu_delete">Usuń zadanie</string>
+    
+    <string name="title">Tytuł</string>
+    <string name="body">Treść</string>
     <string name="confirm">Akceptuj</string>
     <string name="edit_task">Edytuj zadanie</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="menu_settings">Settings</string>    
+        
     
-    <string name="toast_add_task">Dodano zadanie...</string>
-    <string name="toast_edit_task">Zedytowano zadanie...</string>
+    <string name="toast_add_task">Dodano zadanie&#8230;</string>
+    <string name="toast_edit_task">Zedytowano zadanie&#8230;</string>
     
     <string name="title_activity_task_edit">Edycja zadania</string>
     <string name="title_activity_task_add">Tworzenie zadania</string>
            
-    <string name="button_add">Dodaj</string>    
+    <string name="button_add">Dodaj</string> 
+    <string name="button_del">Usuń</string>   
     
     <string name="title_header_text">Lista zadań</string>
     <string name="search_hint">Wyszukaj</string>
+    
 
 </resources>
