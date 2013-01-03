@@ -11,14 +11,14 @@
     <string name="title">Tytuł</string>
     <string name="body">Treść</string>
     <string name="confirm">Akceptuj</string>
-    <string name="edit_task">Edytuj zadanie</string>
-        
+    <string name="edit_task">Edytuj zadanie</string>            
     
     <string name="toast_add_task">Dodano zadanie&#8230;</string>
     <string name="toast_edit_task">Zedytowano zadanie&#8230;</string>
+    <string name="toast_empty_list">Lista pusta</string>
     
     <string name="title_activity_task_edit">Edycja zadania</string>
-    <string name="title_activity_task_add">Tworzenie zadania</string>
+    <string name="title_activity_task_add">Tworzenie zadania</string>    
            
     <string name="button_add">Dodaj</string> 
     <string name="button_del">Usuń</string>   

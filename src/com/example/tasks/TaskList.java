@@ -196,7 +196,7 @@ public class TaskList extends ListActivity {
 					
 				} while (c.moveToNext());
 			}
-			else Toast.makeText(this, "Lista pusta", Toast.LENGTH_SHORT).show();
+			else Toast.makeText(this, R.string.toast_empty_list, Toast.LENGTH_SHORT).show();
 			
 			// refresh list view
 			fillData();
@@ -230,7 +230,6 @@ public class TaskList extends ListActivity {
 	@Override
 	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
 		super.onCreateContextMenu(menu, v, menuInfo);
-		//menu.add(0, DELETE_ID, 0, R.string.menu_delete);
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.task_list_context_menu, menu);
 	}
